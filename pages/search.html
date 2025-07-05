@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title> ||Search Developers ||</title>
+
+  <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+  <style>
+    body {
+      background: linear-gradient(-45deg, #0f2027, #203a43, #2c5364, #4b6cb7);
+      background-size: 400% 400%;
+      animation: gradientAnimation 15s ease infinite;
+      font-family: Verdana, Geneva, Tahoma, sans-serif;
+      padding: 40px;
+    }
+    @keyframes gradientAnimation {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    h2 { text-align: center; margin-bottom: 1.5rem; }
+    .search-box { display: flex; justify-content: center; }
+    .search-box input {
+      padding: 8px;
+      width: 100%;
+      max-width: 300px;
+      margin-bottom: 20px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+    ul { list-style: none; padding: 0; }
+    li {
+      padding: 10px;
+      background: #f2f2f2;
+      margin-bottom: 8px;
+      border-radius: 6px;
+    }
+    li a { text-decoration: none; color: #333; }
+    #noResults { color: red; }
+    #loader {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 30px;
+    }
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 5px solid #3805f3;
+      border-top: 5px solid #203a43;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg);}
+      100% { transform: rotate(360deg);}
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel" data-presets="react">
+    function Loader() {
+      return (
+        <div id="loader">
+          <div className="spinner"></div>
+          <h3>Search Page</h3>
+        </div>
+      );
+    }
+
+    function SearchApp() {
+      const [query, setQuery] = React.useState("");
+      const developers = [
+        { name: "Abijuru Pacifique",    link: "/profile/pacis.html"  },
+        { name: "Irakoze Reponse Rene", link: "/profile/repo.html"   },
+        { name: "Kirangirire Jimmy",    link: "/profile/jimmy.html"  },
+        { name: "Irasubiza Esther",     link: "/profile/esther.html" }
+      ];
+      const filtered = developers.filter(dev =>
+        dev.name.toLowerCase().includes(query.toLowerCase())
+      );
+
+      return (
+        <React.Fragment>
+          <h2>Search Developer to see their details</h2>
+
+          <div className="search-box">
+            <input
+              type="text"
+              placeholder="Type to search..."
+              value={query}
+              onChange={e => setQuery(e.target.value)}
+            />
+          </div>
+
+          {filtered.length ? (
+            <ul>
+              {filtered.map(dev => (
+                <li key={dev.link}>
+                  <a href={dev.link}>{dev.name}</a>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p id="noResults">No results found.</p>
+          )}
+        </React.Fragment>
+      );
+    }
+
+    function App() {
+      const [loading, setLoading] = React.useState(true);
+
+      React.useEffect(() => {
+        const timer = setTimeout(() => {
+          setLoading(false);
+        }, 2000); // Show loader for 2 seconds
+        return () => clearTimeout(timer);
+      }, []);
+
+      return loading ? <Loader /> : <SearchApp />;
+    }
+
+    ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+  </script>
+</body>
+</html>

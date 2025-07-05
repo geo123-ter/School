@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Comments Section with Delete</title>
+  <style>
+    body {
+      font-family: Verdana, Geneva, Tahoma, sans-serif;
+      background: #f9f9f9;
+      padding: 2rem;
+      max-width: 600px;
+      margin: auto;
+    }
+    h2 {
+      color: #007b8a;
+      margin-bottom: 1rem;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    textarea {
+      resize: vertical;
+      min-height: 80px;
+      padding: 0.8rem;
+      font-size: 1rem;
+      border-radius: 8px;
+      border: 1.5px solid #007b8a;
+      outline: none;
+    }
+    button {
+      width: 120px;
+      padding: 0.7rem;
+      border: none;
+      background-color: #007b8a;
+      color: white;
+      font-size: 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      align-self: flex-start;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: #005f6a;
+    }
+    .comments-list {
+      list-style-type: none;
+      padding-left: 0;
+    }
+    .comments-list li {
+      background: white;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgb(0 0 0 / 0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      white-space: pre-wrap; /* preserve line breaks */
+    }
+    .delete-btn {
+      background-color: #ff4d4f;
+      border: none;
+      color: white;
+      padding: 0.4rem 0.7rem;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+    }
+    .delete-btn:hover {
+      background-color: #cc3b3f;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Comments</h2>
+
+  <form id="commentForm">
+    <textarea id="commentInput" placeholder="Write your comment here..." required></textarea>
+    <button type="submit">Post Comment</button>
+  </form>
+
+  <ul id="commentsList" class="comments-list"></ul>
+
+  <script>
+    const commentForm = document.getElementById('commentForm');
+    const commentInput = document.getElementById('commentInput');
+    const commentsList = document.getElementById('commentsList');
+
+    // Load comments from localStorage or empty array
+    function getComments() {
+      return JSON.parse(localStorage.getItem('comments') || '[]');
+    }
+
+    // Save comments to localStorage
+    function saveComments(comments) {
+      localStorage.setItem('comments', JSON.stringify(comments));
+    }
+
+    // Render comments on page
+    function renderComments() {
+      const comments = getComments();
+      commentsList.innerHTML = '';
+
+      if (comments.length === 0) {
+        commentsList.innerHTML = '<li>No comments yet. Be the first to comment!</li>';
+        return;
+      }
+
+      comments.forEach((comment, index) => {
+        const li = document.createElement('li');
+        li.textContent = comment;
+
+        // Create delete button
+        const deleteBtn = document.createElement('button');
+        deleteBtn.textContent = 'Delete';
+        deleteBtn.classList.add('delete-btn');
+        deleteBtn.addEventListener('click', () => {
+          deleteComment(index);
+        });
+
+        // Append delete button to the comment li
+        li.appendChild(deleteBtn);
+        commentsList.appendChild(li);
+      });
+    }
+
+    // Delete comment by index
+    function deleteComment(index) {
+      const comments = getComments();
+      comments.splice(index, 1); // Remove the comment at index
+      saveComments(comments);
+      renderComments();
+    }
+
+    // Handle form submit
+    commentForm.addEventListener('submit', e => {
+      e.preventDefault();
+      const commentText = commentInput.value.trim();
+
+      if (commentText === '') return;
+
+      const comments = getComments();
+      comments.push(commentText);
+      saveComments(comments);
+      renderComments();
+
+      commentInput.value = '';
+    });
+
+    // Initial render
+    renderComments();
+  </script>
+
+</body>
+</html>

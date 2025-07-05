@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title> || Contact ||</title>
+  <style>
+    body {
+      font-family: Verdana, Geneva, Tahoma, sans-serif;
+      max-width: 600px;
+      margin: 2rem auto;
+      padding: 1rem;
+      background: #f5f7fa;
+      color: #333;
+    }
+    h1 {
+      text-align: center;
+      color: #007b8a;
+      margin-bottom: 1rem;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      background: white;
+      padding: 1rem;
+      border-radius: 10px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    }
+    input, textarea {
+      padding: 0.7rem;
+      font-size: 1rem;
+      border-radius: 8px;
+      border: 1.5px solid #007b8a;
+      outline: none;
+      resize: vertical;
+    }
+    textarea {
+      min-height: 100px;
+    }
+    button {
+      padding: 0.8rem;
+      font-size: 1.1rem;
+      background-color: #007b8a;
+      border: none;
+      color: white;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      width: 120px;
+      align-self: flex-start;
+    }
+    button:hover {
+      background-color: #005f6a;
+    }
+    .messages-list {
+      background: white;
+      padding: 1rem;
+      border-radius: 10px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    }
+    .message-item {
+      border-bottom: 1px solid #ddd;
+      padding: 0.7rem 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .message-item:last-child {
+      border-bottom: none;
+    }
+    .msg-content {
+      max-width: 80%;
+    }
+    .msg-header {
+      font-weight: bold;
+      color: #007b8a;
+      margin-bottom: 0.3rem;
+    }
+    .delete-btn {
+      background: #ff4d4d;
+      border: none;
+      color: white;
+      border-radius: 6px;
+      padding: 0.3rem 0.7rem;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: background-color 0.2s ease;
+    }
+    .delete-btn:hover {
+      background: #cc0000;
+    }
+    #logoutBtn {
+      margin: 1rem 0;
+      background: #333;
+      color: white;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background-color 0.3s ease;
+    }
+    #logoutBtn:hover {
+      background: #555;
+    }
+    .error-msg {
+      color: red;
+      margin-bottom: 0.5rem;
+      font-weight: bold;
+    }
+    .success-msg {
+      color: green;
+      margin-bottom: 0.5rem;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Contact Us</h1>
+
+
+
+  <form action="https://api.web3forms.com/submit" method="POST">
+    <input type="hidden" name="access_key" value="27379a41-d4a7-4fa1-a27a-e14a303d861a">
+    <div class="error-msg" id="errorMsg" style="display:none;"></div>
+    <div class="success-msg" id="successMsg" style="display:none;"></div>
+
+    <input type="text" id="nameInput" placeholder="Your Name" name="Name" required />
+    <input type="email" id="emailInput" placeholder="Your Email"  name="email" required />
+    <textarea id="messageInput" placeholder="Your Message" name="message" required></textarea>
+    <button type="submit">Send Message</button>
+  </form>
+
+  <div class="messages-list" id="messagesList">
+    <h2>Previous Messages</h2>
+    <!-- Messages will appear here -->
+  </div>
+
+  <script>
+    // Check logged in user, else redirect
+    const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
+    if (!loggedInUser) {
+      alert("You must be logged in to view the contact page.");
+      window.location.href = "login.html";
+    }
+
+    const contactForm = document.getElementById('contactForm');
+    const nameInput = document.getElementById('nameInput');
+    const emailInput = document.getElementById('emailInput');
+    const messageInput = document.getElementById('messageInput');
+    const messagesList = document.getElementById('messagesList');
+    const errorMsg = document.getElementById('errorMsg');
+    const successMsg = document.getElementById('successMsg');
+    const logoutBtn = document.getElementById('logoutBtn');
+
+    // Get messages from localStorage
+    function getMessages() {
+      return JSON.parse(localStorage.getItem('contactMessages') || '[]');
+    }
+
+    // Save messages to localStorage
+    function saveMessages(messages) {
+      localStorage.setItem('contactMessages', JSON.stringify(messages));
+    }
+
+    // Render messages
+    function renderMessages() {
+      const messages = getMessages();
+      // Clear old messages except the heading
+      messagesList.querySelectorAll('.message-item').forEach(el => el.remove());
+
+      if (messages.length === 0) {
+        const p = document.createElement('p');
+        p.textContent = 'No messages yet.';
+        messagesList.appendChild(p);
+        return;
+      }
+
+      messages.forEach((msg, index) => {
+        const div = document.createElement('div');
+        div.classList.add('message-item');
+
+        const contentDiv = document.createElement('div');
+        contentDiv.classList.add('msg-content');
+        contentDiv.innerHTML = `
+          <div class="msg-header">${msg.name} (${msg.email})</div>
+          <div>${msg.message}</div>
+          <small style="color:gray;">Sent on: ${new Date(msg.timestamp).toLocaleString()}</small>
+        `;
+
+        const deleteBtn = document.createElement('button');
+        deleteBtn.classList.add('delete-btn');
+        deleteBtn.textContent = 'Delete';
+        deleteBtn.onclick = () => {
+          if (confirm('Delete this message?')) {
+            const messages = getMessages();
+            messages.splice(index, 1);
+            saveMessages(messages);
+            renderMessages();
+          }
+        };
+
+        div.appendChild(contentDiv);
+        div.appendChild(deleteBtn);
+        messagesList.appendChild(div);
+      });
+    }
+
+    // Form submit handler
+    contactForm.addEventListener('submit', e => {
+      e.preventDefault();
+      errorMsg.style.display = 'none';
+      successMsg.style.display = 'none';
+
+      const name = nameInput.value.trim();
+      const email = emailInput.value.trim();
+      const message = messageInput.value.trim();
+
+      if (!name || !email || !message) {
+        errorMsg.textContent = "All fields are required!";
+        errorMsg.style.display = 'block';
+        return;
+      }
+
+      // Basic email validation
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailPattern.test(email)) {
+        errorMsg.textContent = "Please enter a valid email.";
+        errorMsg.style.display = 'block';
+        return;
+      }
+
+      // Save message
+      const messages = getMessages();
+      messages.push({
+        name,
+        email,
+        message,
+        timestamp: Date.now(),
+      });
+      saveMessages(messages);
+      renderMessages();
+
+      successMsg.textContent = "Message sent successfully!";
+      successMsg.style.display = 'block';
+
+      contactForm.reset();
+    });
+
+    // Logout button handler
+    logoutBtn.addEventListener('click', () => {
+      localStorage.removeItem('loggedInUser');
+      window.location.href = "login.html";
+    });
+
+    // Initial render
+    renderMessages();
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,122 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us</title>
+  <link rel="stylesheet" href="/css/about.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" 
+    integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+     crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+</head>
+<body>
+  <!-- header -->
+  <div class="header">
+      <img src="/assets/logo2.png "alt="logo">
+
+    <nav>
+      <ul>
+        <li><a href='/index.html'>Home</a></li>
+        <li><a href='./about.html'>About Us</a></li>
+        <li><a href='./contact.html'>Contact</a></li>
+        <li><a href='./porti.html'>Portfolio</a></li>
+        <li><a href='./bloag2.html'>Blogs</a></li>
+        <h4 id="warn" onclick="warn()">Login</h4>
+      </ul>
+    </nav>
+  </div>
+  <!-- main  -->
+  <h1>ABOUT US</h1>
+  <div class="intro">
+    If you want to know many information about this developer, you can click to learn more and get their information.
+  </div>
+
+  <div class="cards">
+    <div class="card">
+        <img src="/assets/rash.jpg" alt="developer">
+         <p><strong>Name:</strong>Irakoze Reponse Rene</p>
+      <p>tel: 0722360862</p>
+      <p>email: reponserashford10@gmail.com</p>
+    
+    </div>
+    <div class="card">
+        <img src="/assets/jm.jpg" alt="design">
+         <p><strong>Name:</strong>Kirangirire jimmy</p>
+      <p>tel: 0726326885</p>
+      <p>email: jimmykirangirire@gmail.com</p>
+    </div>
+    <div class="card">
+      <img src="/assets/pacis.jpg" alt="Developer 3">
+       <p><strong>Name:</strong>Abijuru Pacifique</p>
+      <p>tel: 0721432343</p>
+      <p>email: geovanpacis@gmail.com</p>
+         </div>
+  
+  <div class="card">
+    <img src="/assets/est.jpg" alt="Developer 3">
+    <p><strong>Name:</strong>Irasubiza Esther</p>
+    <p>tel: 0794234242</p>
+    <p>email: kenzoesthella@gmail.com</p>
+    
+  </div>
+
+</div>
+ <a class='yuu' href='./search.html'>learn more</a>
+
+ <!-- footer  -->
+  
+    <footer class="footer">
+
+  <div class="footer-container">
+    <div class="footer-brand">
+      <h2>GRJE</h2>
+      <p>Front-End Developer | Building clean and modern websites.</p>
+    </div>
+
+    <div class="footer-links">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href='/index.html'>Home</a></li>
+        <li><a href="./about.html">About Us</a></li>
+        <li><a href="./porti.html">Portfolio</a></li>
+        <li><a href="./contact.html">Contact</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-social">
+      <h4>Connect</h4>
+      <div class="social-icons">
+       <a href="#">Facebook<i class="fa-brands fa-facebook"></i></a>
+       <a href="#">twitter<i class="fa-brands fa-twitter"></i></a>
+       <a href="#">whatsapp<i class="fa-brands fa-whatsapp"></i></a>
+       <a href="#">Instagram<i class="fa-brands fa-instagram"></i></a>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    &copy; 2025 GRJE. All rights reserved.
+  </div>
+</footer>
+<script>
+  function warn() {
+    const warning = document.getElementById('warn');
+    warning.textContent = 'You must go to Home page if  you want to login';
+    warning.style.color = 'red';
+    warning.style.fontSize = '20px';
+    setTimeout(() => {
+      window.location.href = '/index.html';
+    }, 2000);
+  }
+
+ 
+ 
+</script>
+</body>
+</html>
+
+
+
+

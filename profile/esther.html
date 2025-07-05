@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Profile: IRASUBIZA Esther</title>
+
+  <style>
+    /* ---------- Base layout ---------- */
+    body{
+      font-family: Verdana, Geneva, Tahoma, sans-serif;
+      display:flex;
+      justify-content:center;
+      padding:40px;
+      margin:0;
+      background:linear-gradient(to right,#0f2027,#203a43,#2c5364);
+    }
+    .container{
+      display:flex;
+      background:#dbd4d4;
+      padding:20px;
+      border-radius:12px;
+      box-shadow:0 0 10px rgba(0,0,0,.1);
+      max-width:800px;
+      width:100%;
+      gap:16px;               /* little breathing room */
+    }
+    .left,.right{padding:20px;}
+    .left{width:40%;text-align:center;}
+    .left img{
+      width:150px;
+      border-radius:10px;
+      margin-top:30px;
+      object-fit:cover;
+      border:2px solid #203a43;
+    }
+    .left h3{margin-top:15px;text-decoration:underline;}
+    .left ul{list-style:none;margin-top:10px;padding:0;}
+    .left li{margin:6px 0;}
+    .right{width:60%;}
+    .right h2{margin-bottom:10px;color:#203a43;}
+    .right p{margin:5px 0;}
+    .skills{margin-top:20px;}
+    .skills strong{text-transform:uppercase;}
+    .bnt{
+      display:inline-block;margin-top:20px;padding:10px 20px;
+      background:#203a43;color:#fff;text-decoration:none;
+      border-radius:8px;transition:.3s;
+    }
+    .bnt:hover{background:#2c5364;}
+
+    /* ---------- Responsive tweak ---------- */
+    @media (max-width: 640px){
+      body{padding:20px;}                  /* tighter gutter */
+      .container{
+        flex-direction:column;             /* stack columns  */
+        align-items:center;                /* center items   */
+      }
+      .left,.right{width:100%;padding:15px;}
+      .left img{width:120px;margin-top:0;}
+      .right h2{font-size:1.2rem;text-align:center;}
+      .right p{text-align:center;}
+      .skills{text-align:center;}
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="left">
+      <img src="/assets/est.jpg" alt="Profile Photo">
+      <h3>HOBBIES</h3>
+      <ul><li>Travelling</li></ul>
+    </div>
+
+    <div class="right">
+      <h2>Identification</h2>
+      <p><strong>NAME:</strong> IRASUBIZA Esther</p>
+      <p><strong>DATE OF BIRTH:</strong> 2007‑07‑01</p>
+      <p><strong>GENDER:</strong> FEMALE</p>
+      <p><strong>DISTRICT:</strong> GASABO</p>
+      <p><strong>SECTOR:</strong> JABANA</p>
+      <p><strong>VILLAGE:</strong> GATARI</p>
+      <p><strong>NATIONALITY:</strong> RWANDA</p>
+      <p><strong>EMAIL:</strong> kenzoesthella@gmail.com</p>
+      <p><strong>TEL:</strong> 0794234242</p>
+
+      <div class="skills">
+        <h3>SKILLS</h3>
+        <p>Use of <strong>HTML</strong></p>
+        <p>Use of <strong>CSS</strong></p>
+        <p>Use of <strong>JAVA</strong></p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
