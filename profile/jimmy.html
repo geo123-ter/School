@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Profile: KIRANGIRIRE Jimmy</title>
+  <style>
+    body {
+      font-family: Verdana, Geneva, Tahoma, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      background: linear-gradient(-45deg, #0f2027, #203a43, #2c5364, #1c3b52);
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
+      color: #000;
+    }
+
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .container {
+      display: flex;
+      background: #e6dcdc;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+      max-width: 800px;
+      width: 100%;
+    }
+
+    .left, .right {
+      padding: 20px;
+    }
+
+    .left {
+      width: 40%;
+      text-align: center;
+    }
+
+    .left img {
+      width: 150px;
+      height: 150px;
+      border-radius: 10px;
+      object-fit: cover;
+      border: 2px solid #203a43;
+    }
+
+    .left h3 {
+      text-decoration: underline;
+      margin-top: 15px;
+    }
+
+    .left ul {
+      list-style-type: none;
+      padding: 0;
+      margin-top: 10px;
+    }
+
+    .left ul li {
+      margin: 6px 0;
+    }
+
+    .right {
+      width: 60%;
+    }
+
+    .right h2 {
+      margin-bottom: 10px;
+      color: #203a43;
+    }
+
+    .right p {
+      margin: 5px 0;
+    }
+
+    .skills {
+      margin-top: 20px;
+    }
+
+    .skills strong {
+      text-transform: uppercase;
+    }
+
+    .bnt {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #203a43;
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      transition: 0.3s ease;
+    }
+
+    .bnt:hover {
+      background-color: #2c5364;
+    }
+
+    @media (max-width: 700px) {
+      .container {
+        flex-direction: column;
+        padding: 15px;
+      }
+
+      .left, .right {
+        width: 100%;
+        text-align: center;
+      }
+
+      .bnt {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="left">
+      <img src="/assets/jm.jpg" alt="kjimmy">
+      <h3>HOBBIES</h3>
+      <ul>
+        <li>Play basketball</li>
+        <li>Play video games</li>
+        <li>Travelling</li>
+        <li>Reading books</li>
+        <li>Listening to music</li>
+      </ul>
+    </div>
+    <div class="right">
+      <h2>Identification</h2>
+      <p><strong>NAME:</strong> KIRANGIRIRE Jimmy</p>
+      <p><strong>DATE OF BIRTH:</strong> 2007-11-09</p>
+      <p><strong>GENDER:</strong> MALE</p>
+      <p><strong>DISTRICT:</strong> GASABO</p>
+      <p><strong>SECTOR:</strong> GATSATA</p>
+      <p><strong>VILLAGE:</strong> AKIMIHIGO</p>
+      <p><strong>NATIONALITY:</strong> RWANDA</p>
+      <p><strong>EMAIL:</strong> jimmykirangirire@gmail.com</p>
+      <p><strong>TEL:</strong> 0787926891</p>
+
+      <div class="skills">
+        <h3>SKILLS</h3>
+        <p>Use of <strong>HTML</strong></p>
+        <p>Use of <strong>CSS</strong></p>
+        <p>Use of <strong>JAVA</strong></p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

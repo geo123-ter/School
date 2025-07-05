@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Notifications</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background: #f9f9f9;
+      max-width: 600px;
+      margin: 40px auto;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    h1 {
+      color: #333;
+      margin-bottom: 20px;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+    li {
+      background: #fff;
+      border: 1px solid #ddd;
+      padding: 15px;
+      margin-bottom: 12px;
+      border-radius: 6px;
+      box-shadow: 1px 1px 3px rgba(0,0,0,0.05);
+      font-size: 16px;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+  <h1>Notifications</h1>
+  <ul id="notification-list"></ul>
+
+  <script>
+    // Static notifications array
+    const notifications = [
+      "New comment on your blog post.",
+      "Your profile was viewed 5 times today.",
+      "You have 3 new messages.",
+      "System maintenance scheduled for tomorrow.",
+      "New follower: John Doe."
+    ];
+
+    const list = document.getElementById('notification-list');
+
+    notifications.forEach(note => {
+      const li = document.createElement('li');
+      li.textContent = note;
+      list.appendChild(li);
+    });
+  </script>
+</body>
+</html>

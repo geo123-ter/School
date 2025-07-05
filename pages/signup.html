@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title> ||Login & Sign‑U ||p</title>
+<style>
+:root{
+  --blue:#0077cc; --dark:#0e1a40; --error:#ff4d4f; --success:#00c853;
+}
+*{box-sizing:border-box;
+    margin:0;
+    padding:0;
+    font-family:Verdana,Tahoma,sans-serif}
+
+body{
+  background:#e0e2e7;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;padding:1rem;
+}
+.auth-box{
+  width:450px;
+  background:#fff;
+  border-radius:12px;
+  box-shadow:0 6px 20px rgba(0,0,0,.1);
+  overflow:hidden;
+  position:relative;
+  height: 450px;
+}
+form{
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  height:100%;
+  padding:1.5rem;  
+  gap:1rem;
+  transition:.4s;
+}
+h2{color:var(--dark);
+    text-align:center;
+    margin-bottom:.5rem
+}
+input{
+  width:100%;
+  padding:.8rem;
+  border:1.5px solid var(--blue);
+  border-radius:8px;
+  font-size:1rem
+}
+button{
+  background:var(--blue);color:#fff;border:none;padding:.8rem;border-radius:8px;
+  font-size:1rem;cursor:pointer;transition:.25s
+}
+button:hover{background:#005fa3}
+.toggle-link{
+  text-align:center;color:var(--blue);cursor:pointer;font-size:.9rem;margin-top:.2rem
+}
+.message{font-size:.86rem;text-align:center;height:18px}
+.error{color:var(--error)}
+.success{color:var(--success)}
+
+/* slide animation */
+#signupForm{position:absolute;inset:0;transform:translateX(100%);opacity:0}
+#signupForm.show{transform:translateX(0);opacity:1}
+#loginForm.hide{transform:translateX(-100%);opacity:0}
+
+/* resposive */
+@media (max-width: 600px) {
+  .auth-box {
+    width: 100%;
+    min-width: 0;
+    height: auto;
+    box-shadow: 0 2px 8px rgba(0,0,0,.08);
+    border-radius: 8px;
+    padding: 0;
+  }
+  form {
+    padding: 1rem 0.5rem;
+    gap: 0.7rem;
+  }
+   button {
+    width: 100%;
+    font-size: 0.98rem;
+  }
+}
+.back {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  color: var(--blue);
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+.back:hover {
+  text-decoration: underline;
+}
+  .back:active {
+    color: #005fa3;
+  }
+  .back:focus {
+    outline: 2px solid var(--blue);
+    outline-offset: 2px;
+  }
+
+</style>
+</head>
+<body>
+  <a href="/index.html" class="back">Home</a>
+<div class="auth-box">
+
+  <!-- LOGIN -->
+  <form id="loginForm">
+    <h2>Login</h2>
+    <input type="email" id="loginEmail" placeholder="Email" required />
+    <input type="password" id="loginPassword" placeholder="Password (min‑6)" minlength="6" required />
+    <button type="submit">Login</button>
+    <div class="message" id="loginMsg"></div>
+    <div class="toggle-link" id="goSignup">No account? Sign Up</div>
+  </form>
+
+  <!-- SIGN‑UP -->
+  <form id="signupForm">
+    <h2>Sign Up</h2>
+    <input type="text" id="signupUsername" placeholder="Username" required />
+    <input type="email" id="signupEmail" placeholder="Email" required />
+    <input type="password" id="signupPassword" placeholder="Password (min‑6)" minlength="6" required />
+    <input type="password" id="signupConfirm" placeholder="Confirm Password" minlength="6" required />
+    <button type="submit">Register</button>
+    <div class="message" id="signupMsg"></div>
+    <div class="toggle-link" id="goLogin">Already have an account? Login</div>
+  </form>
+
+</div>
+
+<script>
+/* ----------  HELPERS  ---------- */
+const getUsers = () => JSON.parse(localStorage.getItem('users') || '{}');
+const saveUsers = users => localStorage.setItem('users', JSON.stringify(users));
+
+const emailRE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+/* ----------  ELEMENTS  ---------- */
+const loginForm = document.getElementById('loginForm');
+const signupForm= document.getElementById('signupForm');
+const loginMsg  = document.getElementById('loginMsg');
+const signupMsg = document.getElementById('signupMsg');
+const goSignup  = document.getElementById('goSignup');
+const goLogin   = document.getElementById('goLogin');
+
+/* ----------  TOGGLE UI  ---------- */
+function showSignup(){
+  loginForm.classList.add('hide');
+  signupForm.classList.add('show');
+  loginMsg.textContent=''; signupMsg.textContent='';
+}
+function showLogin(){
+  signupForm.classList.remove('show');
+  loginForm.classList.remove('hide');
+  loginMsg.textContent=''; signupMsg.textContent='';
+}
+goSignup.onclick = showSignup;
+goLogin.onclick  = showLogin;
+
+/* ----------  SIGN‑UP  ---------- */
+signupForm.onsubmit = e=>{
+  e.preventDefault();
+  signupMsg.className='message';
+  const username = signupUsername.value.trim();
+  const email    = signupEmail.value.trim().toLowerCase();
+  const pass     = signupPassword.value;
+  const confirm  = signupConfirm.value;
+
+  if(!emailRE.test(email)){
+    signupMsg.textContent='Invalid email.'; signupMsg.classList.add('error'); return;
+  }
+  if(pass.length<6){
+    signupMsg.textContent='Password too short.'; signupMsg.classList.add('error'); return;
+  }
+  if(pass!==confirm){
+    signupMsg.textContent='Passwords do not match.'; signupMsg.classList.add('error'); return;
+  }
+
+  const users = getUsers();
+  if(users[email]){
+    signupMsg.textContent='Email already registered.'; signupMsg.classList.add('error'); return;
+  }
+
+  users[email] = {username,email,password:pass};
+  saveUsers(users);
+
+  signupMsg.textContent='Registration successful! Redirecting to login…';
+  signupMsg.classList.add('success');
+  signupForm.reset();
+  setTimeout(showLogin,1500);
+};
+
+/* ----------  LOGIN  ---------- */
+loginForm.onsubmit = e=>{
+  e.preventDefault();
+  loginMsg.className='message';
+
+  const email = loginEmail.value.trim().toLowerCase();
+  const pass  = loginPassword.value;
+
+  if(!emailRE.test(email)){
+    loginMsg.textContent='Invalid email.'; loginMsg.classList.add('error'); return;
+  }
+
+  const users = getUsers();
+  const user  = users[email];
+
+  if(!user){
+    loginMsg.textContent='Account not found – redirecting to Sign‑Up…';
+    loginMsg.classList.add('error');
+    setTimeout(showSignup,1500);
+    return;
+  }
+  if(user.password!==pass){
+    loginMsg.textContent='Incorrect password.'; loginMsg.classList.add('error'); return;
+  }
+
+  // success
+  localStorage.setItem('loggedInUser', JSON.stringify({username:user.username,email}));
+  loginMsg.textContent='Login successful! Redirecting…';
+  loginMsg.classList.add('success');
+  setTimeout(()=>window.location.href='./dashboard.html',1200);
+};
+
+
+showLogin();
+</script>
+
+</body>
+</html>

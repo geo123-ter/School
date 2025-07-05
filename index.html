@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title> || Portiforial ||</title>
+  <link rel="stylesheet" href="./css/home.css" />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
+
+  <!-- React core (development build) -->
+  <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+  <!-- Babel lets you write JSX directly in the browser while you learn/prototype -->
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+  <style>
+    /* Quick styles for the new React loader */
+    #loader-overlay {
+      position: fixed;
+      inset: 0;
+      backdrop-filter: blur(2px);
+      background: rgba(255, 255, 255, 0.8);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      transition: opacity 0.5s ease;
+    }
+    #loader-overlay.fade {
+      opacity: 0;
+      pointer-events: none;
+    }
+    .spinner {
+      width: 48px;
+      height: 48px;
+      border: 6px solid #203a43;
+      border-top-color: transparent;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin-bottom: 1rem;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <!-- React will mount the loader here -->
+  <div id="loader-root"></div>
+
+ 
+  <div class="header">
+    <img src="./assets/logo2.png" alt="logo" />
+    <nav>
+      <ul>
+        <li><a href="/index.html">Home</a></li>
+        <li><a href="./pages/about.html">About Us</a></li>
+        <li><a href="./pages/contact.html">Contact</a></li>
+        <li><a href="./pages/porti.html">Portiforial</a></li>
+        <li><a href="./pages/bloag2.html">Blogs</a></li>
+        <li><a href="./pages/signup.html">Login</a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <section>
+    <div class="container">
+      <div class="typewriter-container">
+        <h1>Hi, We Deal with</h1>
+        <h2><span class="typed-text"></span><span class="cursor">|</span></h2>
+      </div>
+      <div class="imag">
+        <img src="./assets/home.png" alt="image" />
+      </div>
+    </div>
+    <div class="audio-greeting">
+      <button onclick="document.getElementById('voice').play()">🔊 Play Greeting</button>
+      <audio id="voice" src="./assets/record.mp3"></audio>
+    </div>
+  </section>
+
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Hi, We are <span class="highlight">GRJE</span></h1>
+      <p class="tagline">Front-End Developer | Crafting Clean & Interactive Web Experiences</p>
+      <p class="description">
+        We specialize in building responsive websites that combine sleek design with smooth user experience. Whether it's a landing page, portfolio, or full-scale web app — We bring your ideas to life with HTML, CSS, and modern front-end tools.
+      </p>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <h2>GRJE</h2>
+        <p>Front-End Developer | Building clean and modern websites.</p>
+      </div>
+      <div class="footer-links">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/src/pages/more">About Me</a></li>
+          <li><a href="/src/html/port">Portfolio</a></li>
+          <li><a href="/src/html/contact4">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-social">
+        <h4>Connect</h4>
+        <div class="social-icons">
+          <a href="#">Facebook<i class="fa-brands fa-facebook"></i></a>
+          <a href="#">Twitter<i class="fa-brands fa-twitter"></i></a>
+          <a href="#">WhatsApp<i class="fa-brands fa-whatsapp"></i></a>
+          <a href="#">Instagram<i class="fa-brands fa-instagram"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">&copy; 2025 GRJE. All rights reserved.</div>
+  </footer>
+
+  <!-- ========= Tawk.to Script (unchanged) ========= -->
+  <script type="text/javascript">
+    var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
+    (function () {
+      var s1 = document.createElement("script"),
+        s0 = document.getElementsByTagName("script")[0];
+      s1.async = true;
+      s1.src = "https://embed.tawk.to/68422061f260ec190dd28611/1it14t08c";
+      s1.charset = "UTF-8";
+      s1.setAttribute("crossorigin", "*");
+      s0.parentNode.insertBefore(s1, s0);
+    })();
+  </script>
+
+  <!-- ========= Vanilla JS Logic (typewriter, audio, etc.) ========= -->
+  <script>
+    /* --- Typewriter effect (unchanged) --- */
+    const phrases = [
+      "Front-End Developer",
+      "UI/UX Design",
+      "Web Design Specialist",
+      "Creative Coder",
+    ];
+    const typedText = document.querySelector(".typed-text");
+    let currentPhraseIndex = 0;
+    let currentCharIndex = 0;
+    let isDeleting = false;
+    const typingSpeed = 100;
+    const deletingSpeed = 50;
+    const delayBetweenPhrases = 1500;
+
+    function type() {
+      const currentPhrase = phrases[currentPhraseIndex];
+      if (isDeleting) {
+        typedText.textContent = currentPhrase.substring(0, currentCharIndex--);
+      } else {
+        typedText.textContent = currentPhrase.substring(0, currentCharIndex++);
+      }
+      if (!isDeleting && currentCharIndex === currentPhrase.length) {
+        isDeleting = true;
+        setTimeout(type, delayBetweenPhrases);
+      } else if (isDeleting && currentCharIndex === 0) {
+        isDeleting = false;
+        currentPhraseIndex = (currentPhraseIndex + 1) % phrases.length;
+        setTimeout(type, 300);
+      } else {
+        setTimeout(type, isDeleting ? deletingSpeed : typingSpeed);
+      }
+    }
+    document.addEventListener("DOMContentLoaded", () => {
+      type();
+    });
+  </script>
+
+  <!-- ========= React Loader Component ========= -->
+  <script type="text/babel">
+    function Loader() {
+      const [visible, setVisible] = React.useState(true);
+
+      React.useEffect(() => {
+        const timer = setTimeout(() => {
+          // fade out before unmount
+          const overlay = document.getElementById("loader-overlay");
+          if (overlay) overlay.classList.add("fade");
+          setTimeout(() => setVisible(false), 500); // wait for fade
+        }, 2000); // 2‑second display
+        return () => clearTimeout(timer);
+      }, []);
+
+      if (!visible) return null;
+
+      return (
+        <div id="loader-overlay">
+          <div className="spinner" />
+          <h3>Welcome to Our website</h3>
+        </div>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById("loader-root")).render(<Loader />);
+  </script>
+</body>
+</html>

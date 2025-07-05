@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>User Profile</title>
+  <link rel="stylesheet" href="../css/dashboard.css" />
+  <style>
+    body {
+      font-family: Verdana, Geneva, Tahoma, sans-serif;
+      background: #f0f2f5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+   
+    button {
+      background: #007b8a;
+      color: white;
+      border: none;
+      padding: 0.8rem 1.5rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background: #005f6a;
+    }
+  </style>
+</head>
+<body>
+ 
+
+  <script>
+   
+
+    // Logout button logic
+    document.getElementById('logoutBtn').addEventListener('click', () => {
+      localStorage.removeItem('loggedInUser');
+      localStorage.removeItem('userLocation');
+      window.location.href = 'login.html';
+    });
+  </script>
+</body>
+</html>

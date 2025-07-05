@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Profile: GEO Dev</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      justify-content: center;
+      padding: 40px;
+      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+      color: #fff;
+    }
+    .container {
+      display: flex;
+      background: #1e2f44;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.5);
+      max-width: 800px;
+      width: 100%;
+      color: #eee;
+    }
+    .left, .right {
+      padding: 20px;
+    }
+    .left {
+      width: 40%;
+      text-align: center;
+    }
+    .left img {
+      width: 150px;
+      border-radius: 12px;
+      object-fit: cover;
+      border: 2px solid #07a;
+    }
+    .left h3 {
+      text-decoration: underline;
+      margin-top: 20px;
+      font-size: 1.2rem;
+    }
+    .left ul {
+      list-style-type: square;
+      padding-left: 20px;
+      margin-top: 10px;
+      text-align: left;
+    }
+    .left ul li {
+      margin: 8px 0;
+    }
+    .right {
+      width: 60%;
+    }
+    .right h2 {
+      margin-bottom: 10px;
+      color: #07a;
+    }
+    .right p {
+      margin: 5px 0;
+    }
+    .skills {
+      margin-top: 20px;
+    }
+    .skills strong {
+      text-transform: uppercase;
+    }
+    @media (max-width: 700px) {
+      .container {
+        flex-direction: column;
+        padding: 10px;
+      }
+      .left, .right {
+        width: 100%;
+        text-align: center;
+      }
+      .left ul {
+        padding-left: 0;
+        list-style-type: none;
+      }
+    }
+    a{
+      display: inline-block;
+      margin-top: 20px;
+      padding: 10px 20px;
+      background: #07a;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 8px;
+      transition: background 0.3s ease;
+      
+    }
+    a:hover {
+      background: #05a;
+      filter: drop-shadow(0 4px 6px rgba(243, 240, 240, 0.2));
+    }
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="left">
+      <img src="/assets/pacis.jpg" alt="GEO Dev Photo" />
+      <h3>HOBBIES</h3>
+      <ul>
+        <li>Coding and Web Development</li>
+        <li>Learning New Tech</li>
+        <li>Playing Video Games</li>
+        <li>Chatting with AI</li>
+        <li>Listening to Music & Tutorials</li>
+      </ul>
+    </div>
+    <div class="right">
+      <h2>Identification</h2>
+      <p><strong>NAME:</strong> GEO Dev</p>
+      <p><strong>EMAIL:</strong> geovanipacis@gmail.com</p>
+      <p><strong>ROLE:</strong> Front-End Developer & Tech Enthusiast</p>
+      <div class="skills">
+        <h3>Skills</h3>
+        <p><strong>HTML</strong></p>
+        <p><strong>CSS</strong></p>
+        <p><strong>JavaScript</strong></p>
+        <p><strong>Node.js</strong></p>
+
+      </div>
+      <a href="call:+250721432343" class="bnt">Call Me</a>
+      <a href="mailto:geovanipacis@gmail.com" class="bnt">Email Me</a>
+     
+    </div>
+   
+  </div>
+</body>
+</html>

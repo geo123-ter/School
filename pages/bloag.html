@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Blog Posts</title>
+  <style>
+    :root{
+      --primary:#0077cc; --dark:#0e1a40; --light:#f2f4f8;
+      --danger:#ff4d4f;
+    }
+    *{box-sizing:border-box;margin:0;padding:0;font-family:Verdana, Tahoma, sans-serif}
+    body{
+      background:var(--light);color:#333;padding:2rem;max-width:900px;margin:auto;
+    }
+    h1{color:var(--primary);text-align:center;margin-bottom:1.5rem}
+
+    .posts-wrapper{
+      display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;
+    }
+    .post-card{
+      background:#fff;border-radius:12px;box-shadow:0 4px 12px rgba(0,0,0,.08);
+      display:flex;flex-direction:column;overflow:hidden;transition:.25s;
+      position:relative;
+    }
+    .post-card:hover{transform:translateY(-6px)}
+    .post-card img{width:100%;height:180px;object-fit:cover}
+    .post-content{padding:1rem 1.2rem 1.4rem;flex:1;display:flex;flex-direction:column}
+    .post-title{font-weight:700;font-size:1.25rem;margin-bottom:.5rem;color:var(--dark)}
+    .meta{font-size:.85rem;color:#666;margin-bottom:.8rem}
+    .post-body{font-size:.95rem;line-height:1.55;white-space:pre-wrap;flex:1}
+    .no-posts{
+      text-align:center;font-size:1.1rem;padding:2.5rem;color:#666;background:#fff;
+      border-radius:12px;box-shadow:0 4px 12px rgba(0,0,0,.06)
+    }
+
+    /* Delete button */
+    .delete-btn{
+      position:absolute;top:8px;right:8px;
+      background:var(--danger);border:none;color:#fff;font-size:.8rem;
+      padding:4px 10px;border-radius:6px;cursor:pointer;display:flex;align-items:center;
+      gap:4px;transition:.25s;
+    }
+    .delete-btn:hover{background:#d9363e}
+
+    #logoutBtn{
+      position:fixed;top:15px;right:20px;background:#333;color:#fff;border:none;
+      padding:.6rem 1rem;border-radius:8px;cursor:pointer;font-size:.9rem
+    }
+    #logoutBtn:hover{background:#555}
+    #goUploadBtn{
+      position:fixed;
+      top:15px;right:120px;background:var(--primary);color:#fff;border:none;
+      padding:.6rem 1rem;border-radius:8px;cursor:pointer;font-size:.9rem
+    }
+    #goUploadBtn a{
+      color: #fff; text-decoration: none;
+    }
+    #goUploadBtn:hover{background:#005fa3}
+  </style>
+</head>
+<body>
+
+  <button id="logoutBtn">Logout</button>
+  <button id="goUploadBtn" ><a href="./upload.html">Go to Upload Post</a></button>
+  <h1>Latest Blog Posts</h1>
+  <div id="postsContainer"></div>
+
+<script>
+
+  // Check if user is logged in
+  const currentUser = JSON.parse(localStorage.getItem('loggedInUser'));
+  if (!currentUser){
+    alert('You must log in to view blog posts.');
+    window.location.href = 'signup.html';      // <‑‑ change if needed
+  }
+
+  document.getElementById('logoutBtn').onclick = () => {
+    localStorage.removeItem('loggedInUser');
+    window.location.href = 'signup.html';
+  };
+
+  /* ---------- DATA HELPERS ---------- */
+  const STORAGE_KEY = 'blogPosts';
+
+  const loadPosts   = () => JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+  const savePosts   = posts => localStorage.setItem(STORAGE_KEY, JSON.stringify(posts));
+
+  /* ---------- RENDER ---------- */
+  function renderPosts(){
+    const posts = loadPosts().sort((a,b)=>b.id-a.id);
+    const container = document.getElementById('postsContainer');
+    container.innerHTML = '';
+
+    if(!posts.length){
+      container.innerHTML = `<div class="no-posts">No blog posts yet.<br>
+                             Go to “Upload Post” to create one!
+                             <button onclick=go() >Click here</button></div>`;
+      return;
+    }
+
+    const wrapper = document.createElement('div');
+    wrapper.className = 'posts-wrapper';
+
+    posts.forEach(p=>{
+      const card = document.createElement('div');
+      card.className = 'post-card';
+
+      /* IF you only want authors to delete their own posts, uncomment next line */
+      // const canDelete = p.author === currentUser.username;
+
+      /* Image */
+      const img = document.createElement('img');
+      img.src   = p.imageUrl;
+      img.alt   = p.title;
+      card.appendChild(img);
+
+      /* Delete button (always visible here) */
+      const del = document.createElement('button');
+      del.className = 'delete-btn';
+      del.innerHTML = 'Delete';
+      del.onclick = () => deletePost(p.id);
+      card.appendChild(del);
+
+      /* Content */
+      const text = document.createElement('div');
+      text.className = 'post-content';
+      text.innerHTML = `
+        <div class="post-title">${p.title}</div>
+        <div class="meta">By ${p.author||'Anonymous'} • ${p.date||new Date(p.id).toLocaleString()}</div>
+        <div class="post-body">${p.content}</div>`;
+      card.appendChild(text);
+
+      wrapper.appendChild(card);
+    });
+
+    container.appendChild(wrapper);
+  }
+
+  /* ---------- DELETE ---------- */
+  function deletePost(id){
+    if(!confirm('Delete this post?')) return;
+    const posts = loadPosts().filter(p=>p.id!==id);
+    savePosts(posts);
+    renderPosts();
+  }
+  function go(){
+    go.style.display = 'none'; // Hide the button after click
+    window.location.href = 'upload.html';
+     // Change to your upload page
+  }
+
+  /* ---------- INIT ---------- */
+  renderPosts();
+</script>
+
+</body>
+</html>
