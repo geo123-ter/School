@@ -57,6 +57,31 @@
       color: #fff; text-decoration: none;
     }
     #goUploadBtn:hover{background:#005fa3}
+    /* responsive */
+    @media (max-width:900px){
+      body{padding:1.5rem}
+      .posts-wrapper{grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}
+      .post-card img{height:220px}
+      #logoutBtn, #goUploadBtn{top:10px;right:15px;font-size:.9rem;padding:.5rem 1rem}
+    }
+    @media (max-width:700px){
+      body{padding:1.2rem}
+      .posts-wrapper{grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+      .post-card img{height:240px}
+      #logoutBtn, #goUploadBtn{top:10px;right:12px;font-size:.85rem;padding:.5rem .9rem}
+    }
+    @media (max-width:600px){
+      body{padding:1rem}
+      .posts-wrapper{grid-template-columns:1fr}
+      .post-card img{height:200px}
+      #logoutBtn, #goUploadBtn{top:10px;right:10px;font-size:.85rem;padding:.5rem .8rem}
+    }
+    @media (max-width:400px){
+      .post-card img{height:180px}
+      #logoutBtn, #goUploadBtn{top:10px;right:5px;font-size:.8rem;padding:.4rem .6rem}
+    }
+
+
   </style>
 </head>
 <body>
