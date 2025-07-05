@@ -95,6 +95,28 @@
       background: #05a;
       filter: drop-shadow(0 4px 6px rgba(243, 240, 240, 0.2));
     }
+    .download {
+      background: #07a;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    .download:hover {
+      background: #05a;
+      filter: drop-shadow(0 4px 6px rgba(243, 240, 240, 0.2));
+    }
+    button{
+      background: #07a;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
 
   </style>
 </head>
@@ -126,9 +148,20 @@
       </div>
       <a href="call:+250721432343" class="bnt">Call Me</a>
       <a href="mailto:geovanipacis@gmail.com" class="bnt">Email Me</a>
+      <button onclick="downloadcv()" class="download">Download CV</button>
      
     </div>
    
   </div>
+  <script>
+    function downloadcv() {
+      const link = document.createElement('a');
+      link.href = '/assets/geodev.pdf';
+      link.download = 'CV_GEO_Dev.pdf';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+  </script>
 </body>
 </html>

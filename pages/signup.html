@@ -27,7 +27,7 @@ body{
   box-shadow:0 6px 20px rgba(0,0,0,.1);
   overflow:hidden;
   position:relative;
-  height: 450px;
+  height: 500px;
 }
 form{
   display:flex;
@@ -67,23 +67,76 @@ button:hover{background:#005fa3}
 #signupForm.show{transform:translateX(0);opacity:1}
 #loginForm.hide{transform:translateX(-100%);opacity:0}
 
-/* resposive */
-@media (max-width: 600px) {
+/* responsive */
+@media (max-width: 768px) {
   .auth-box {
-    width: 100%;
-    min-width: 0;
+    width: 90%;
     height: auto;
-    box-shadow: 0 2px 8px rgba(0,0,0,.08);
-    border-radius: 8px;
-    padding: 0;
   }
   form {
-    padding: 1rem 0.5rem;
-    gap: 0.7rem;
+    padding: 1rem;
   }
-   button {
+  input, button {
+    font-size: 0.9rem;
+  }
+}
+@media (max-width: 600px) {
+  .auth-box {
+    width: 95%;
+    height: auto;
+  }
+  form {
+    padding: 0.8rem;
+  }
+  input, button {
+    font-size: 0.85rem;
+  }
+  h2{
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+
+  }
+  .toggle-link {
+    font-size: 0.85rem;
+  }
+}
+@media (max-width: 480px) {
+  .auth-box {
+    width: 90%;
+    height: auto;
+  }
+  form {
+    padding: 1rem;
+  }
+  input, button {
+    font-size: 0.9rem;
+  }
+  h2{
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+  }
+  .toggle-link {
+    font-size: 0.9rem;
+  }
+}
+@media (max-width: 360px) {
+  .auth-box {
     width: 100%;
-    font-size: 0.98rem;
+    height: auto;
+  }
+  form {
+    padding: 0.8rem;
+  }
+  input, button {
+    font-size: 0.85rem;
+  }
+  h2{
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+  }
+  .toggle-link {
+    font-size: 0.85rem;
+
   }
 }
 .back {
