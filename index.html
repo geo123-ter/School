@@ -91,8 +91,75 @@
       <p class="description">
         We specialize in building responsive websites that combine sleek design with smooth user experience. Whether it's a landing page, portfolio, or full-scale web app — We bring your ideas to life with HTML, CSS, and modern front-end tools.
       </p>
+      <div class="buttons">
+        <a href="./pages/porti.html" class="btn">View Portfolio</a>
+        <a href="./pages/contact.html" class="btn btn-secondary">Contact Us</a>
+     <button class="btn btn-secondary" onclick="reflect()">Live Demo</button>
+     <button onclick="display()" class="btn btn-secondary">Show Introduction</button>
+     <p id="review"></p>
+   
+
     </div>
-  </section>
+    <div class="skills">
+      <h3>Our Skills</h3>
+      <ul>
+        <li><i class="fa-solid fa-check"></i> HTML5</li>
+        <li><i class="fa-solid fa-check"></i> CSS3</li>
+        <li><i class="fa-solid fa-check"></i> JavaScript</li>
+        <li><i class="fa-solid fa-check"></i> Responsive Design</li>
+        <li><i class="fa-solid fa-check"></i> UI/UX Design</li>
+      </ul>
+    </div>  
+    </div>
+
+  </section> 
+  <section class="testimonial-section">
+  <h2>What Our Supervisors Say</h2>
+  <p class="testimonial-intro">
+    We’re proud to share feedback from those who’ve worked closely with us. These testimonials highlight the value we bring to every project.
+  </p>
+
+  <div class="testimonial-grid">
+    <div class="testimonial-card">
+      <p class="quote">
+        "GRJE has consistently delivered high-quality work that exceeds our expectations. Their attention to detail and innovative approach make them a valuable partner in our projects."
+      </p>
+      <h4>Dushime M</h4>
+      <span>Project Supervisor</span>
+    </div>
+
+    <div class="testimonial-card">
+      <p class="quote">
+        "The team at GRJE is incredibly talented and professional. They transformed our ideas into a stunning website that has received great feedback from our users."
+      </p>
+      <h4>School College</h4>
+      <span>IT Department</span>
+    </div>
+
+    <div class="testimonial-card">
+      <p class="quote">
+        "Working with GRJE has been a fantastic experience. Their creativity and technical skills shine through in every project they undertake."
+      </p>
+      <h4>Jay D</h4>
+      <span>Project Supervisor</span>
+    </div>
+  </div>
+</section>
+<div class="section-sub">
+  <h5>Give us Subscription <i class="fa-solid fa-comment-medical fa-shake"></i></h5>
+<div class="input">
+  <form id="subscribeForm" action="https://api.web3forms.com/submit" method="POST" onsubmit="return send(event)">
+    <input type="hidden" name="access_key" value="27379a41-d4a7-4fa1-a27a-e14a303d861a" />
+
+    <input type="email" id="email" placeholder="Enter your email" required name="email" />
+    <button class="btn btn-secondary" type="submit">Subscribe</button>
+  </form>
+
+  <h4 id="success" style="color: green;"></h4>
+   <span id="error" style="color:red;"></span>
+</div>
+
+</div>
 
   <footer class="footer">
     <div class="footer-container">
@@ -104,9 +171,9 @@
         <h4>Quick Links</h4>
         <ul>
           <li><a href="/">Home</a></li>
-          <li><a href="/src/pages/more">About Me</a></li>
-          <li><a href="/src/html/port">Portfolio</a></li>
-          <li><a href="/src/html/contact4">Contact</a></li>
+          <li><a href="./pages/about.html">About Us</a></li>
+          <li><a href="./pages/porti.html">Portfolio</a></li>
+          <li><a href="./pages/contact.html">Contact</a></li>
         </ul>
       </div>
       <div class="footer-social">
@@ -136,9 +203,9 @@
     })();
   </script>
 
-  <!-- ========= Vanilla JS Logic (typewriter, audio, etc.) ========= -->
+ 
   <script>
-    /* --- Typewriter effect (unchanged) --- */
+    // Typewriter effect for the hero section
     const phrases = [
       "Front-End Developer",
       "UI/UX Design",
@@ -202,6 +269,97 @@
     }
 
     ReactDOM.createRoot(document.getElementById("loader-root")).render(<Loader />);
+
+    function reflect() {
+      const audio = new Audio("./assets/audio.mp3");
+      const reviewElement = document.getElementById("review");
+      audio.play();
+      reviewElement.textContent =("This is a live demo of our work. Enjoy!");
+      reviewElement.style.color = "white";
+      reviewElement.style.fontSize = "1.2rem";
+      reviewElement.style.marginTop = "1rem";
+      reviewElement.style.textAlign = "center";
+    }
+function display() {
+  const reviewElement = document.getElementById("review");
+  reviewElement.innerHTML = `
+    At GRJE, we create powerful, user-friendly web experiences that blend creativity with functionality. 
+    Whether you're browsing our latest blog posts, exploring our portfolio, or reaching out through our contact page, 
+    we’re here to showcase the skills, projects, and innovations that define modern development. 
+    Dive in and discover what we can build together! 
+    <br><br>
+    <button class='btn btn-secondary' onclick='hide()'>Hide</button>
+  `;
+  reviewElement.style.color = "white";
+  reviewElement.style.fontSize = "1.2rem";
+  reviewElement.style.marginTop = "1rem";
+  reviewElement.style.textAlign = "center";
+}
+
+  function hide() {
+  const reviewElement = document.getElementById("review");
+  reviewElement.innerHTML = "";
+}
+
+
+   function send(event) {
+    event.preventDefault(); // stop default form submit for validation
+
+    const form = document.getElementById("subscribeForm");
+    const emailInput = document.getElementById("email");
+    const email = emailInput.value.trim();
+    const error = document.getElementById("error");
+    const success = document.getElementById("success");
+
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!emailPattern.test(email)) {
+      error.textContent = "❌ Please enter a valid email address.";
+      success.textContent = "";
+      return false;
+    }
+
+    error.textContent = "";
+    success.textContent = " Submitting...";
+
+    // Submit the form manually
+    fetch(form.action, {
+      method: "POST",
+      body: new FormData(form)
+    })
+    .then(res => {
+      if (res.ok) {
+        success.textContent = "Thanks for subscribing!";
+        emailInput.value = ""; // clear the field
+      } else {
+        success.textContent = " Something went wrong. Please try again.";
+      }
+    })
+    .catch(() => {
+      success.textContent = " Network error. Please try again.";
+    });
+
+    return false;
+  }
+    function checkEmailStrength() {
+    const email = document.getElementById("email").value;
+    const emailStrength = document.getElementById("emailStrength");
+
+    if (email.length < 5) {
+      emailStrength.textContent = " Too short";
+      emailStrength.className = "invalid";
+    } else if (!email.includes("@")) {
+      emailStrength.textContent = " Missing '@' symbol";
+      emailStrength.className = "invalid";
+    } else if (!email.includes(".")) {
+      emailStrength.textContent = " Missing domain (e.g. .com)";
+      emailStrength.className = "invalid";
+    } else {
+      emailStrength.textContent = " Valid email format";
+      emailStrength.className = "valid";
+    }
+  }
+
   </script>
 </body>
 </html>
